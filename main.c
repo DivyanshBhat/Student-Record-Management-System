@@ -6,21 +6,67 @@ struct Student{
     char branch[50];
     float marks;
 };
+int checkRoll(int *rollNo){
+    if(*rollNo<0){
+        printf("\nRoll number cannot be negative");
+        return 1;
+    }
+    else if(*rollNo==0){
+        printf("\nRoll number cannot be 0");
+        return 1;
+    }
+    else
+    return 0;
+}
+int checkAge(int *age){
+    if(*age<0){
+        printf("\nAge cannot be negative");
+        return 1;
+    }
+    else if(*age==0){
+        printf("\nAge cannot be 0");
+        return 1;
+    }
+    else
+    return 0;
+}
+int checkMarks(float *marks){
+    if(*marks<0){
+        printf("\nMarks cannot be negative");
+        return 1;
+    }
+    else if(*marks>100){
+        printf("\nMarks cannot be greater than 100");
+        return 1;
+    }
+    else
+    return 0;
+}
 void addStudent(struct Student student[], int *studentCount)
 {
     int i = *studentCount;
-    printf("\nEnter Roll of student %d: ", i + 1);
-    scanf("%d",&student[i].rollNo);
-    getchar();
-    printf("\nEnter Name of student %d: ", i + 1);
+    int checkrollNo=1, checkage=1, checkmarks=1;
+    while(checkrollNo){
+        printf("\nEnter Roll of student %d: ",i+1);
+        scanf("%d",&student[i].rollNo);
+        getchar();
+        checkrollNo=checkRoll(&student[i].rollNo);
+    }
+    printf("\nEnter Name of student %d: ",i+1);
     fgets(student[i].name,50,stdin);
-    printf("\nEnter Age of student %d: ", i + 1);
-    scanf("%d", &student[i].age);
-    getchar();
-    printf("\nEnter Branch of student %d: ", i + 1);
+    while(checkage){
+        printf("\nEnter Age of student %d: ",i+1);
+        scanf("%d", &student[i].age);
+        getchar();
+        checkage=checkAge(&student[i].age);
+    }
+    printf("\nEnter Branch of student %d: ",i+1);
     fgets(student[i].branch, 50, stdin);
-    printf("\nEnter Marks of student %d: ", i + 1);
-    scanf("%f", &student[i].marks);
+    while(checkmarks){
+        printf("\nEnter Marks of student %d: ",i+1);
+        scanf("%f", &student[i].marks);
+        checkmarks=checkMarks(&student[i].marks);
+    }
     (*studentCount)++;
 }
 void displayStudent(struct Student student[],int studentCount){
