@@ -38,6 +38,24 @@ void displayStudent(struct Student student[],int studentCount){
             printf("\nMarks: %f",student[i].marks);
         }
 }
+void searchStudent(struct Student student[], int studentCount){
+    int roll;
+    printf("\nEnter Roll No. of student: ");
+    scanf("%d",&roll);
+    for (int i = 0; i < studentCount; i++)
+    {
+        if(student[i].rollNo==roll){
+            printf("\nStudent %d: ",i+1);
+            printf("\nRoll no: %d",student[i].rollNo);
+            printf("\nName: %s",student[i].name);
+            printf("\nAge: %d",student[i].age);
+            printf("\nBranch: %s",student[i].branch);
+            printf("\nMarks: %f",student[i].marks);
+            return;
+        }
+    }
+        printf("\nStudent not found");
+}
 int main(){
     struct Student student[100];
     int choice;
@@ -58,7 +76,7 @@ int main(){
         displayStudent(student,studentCount);
         break;
         case 3:
-        //searchStudent();
+        searchStudent(student, studentCount);
         break;
         case 4:
         return 0;
