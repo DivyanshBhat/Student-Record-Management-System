@@ -6,6 +6,7 @@ struct Student{
     char branch[50];
     float marks;
 };
+//validation checks
 int checkRoll(int *rollNo){
     if(*rollNo<0){
         printf("\nRoll number cannot be negative");
@@ -42,15 +43,26 @@ int checkMarks(float *marks){
     else
     return 0;
 }
+int duplicateRollCheck(int studentCount, int rollNo, struct Student student[]){
+    for(int i=0;i<studentCount;i++){
+        if (rollNo==student[i].rollNo)
+        {
+            printf("\nStudent already exists.");
+            return 1;
+        }
+    }
+    return 0;
+}
 void addStudent(struct Student student[], int *studentCount)
 {
     int i = *studentCount;
-    int checkrollNo=1, checkage=1, checkmarks=1;
-    while(checkrollNo){
+    int checkrollNo=1, checkage=1, checkmarks=1, duplicateRoll=1;
+    while(checkrollNo||duplicateRoll){
         printf("\nEnter Roll of student %d: ",i+1);
         scanf("%d",&student[i].rollNo);
         getchar();
-        checkrollNo=checkRoll(&student[i].rollNo);
+        checkrollNo=checkRoll(&student[i].rollNo); // avoids negative roll no
+        duplicateRoll=duplicateRollCheck(*studentCount,student[i].rollNo,student);
     }
     printf("\nEnter Name of student %d: ",i+1);
     fgets(student[i].name,50,stdin);
@@ -58,7 +70,7 @@ void addStudent(struct Student student[], int *studentCount)
         printf("\nEnter Age of student %d: ",i+1);
         scanf("%d", &student[i].age);
         getchar();
-        checkage=checkAge(&student[i].age);
+        checkage=checkAge(&student[i].age); //avoids negative age
     }
     printf("\nEnter Branch of student %d: ",i+1);
     fgets(student[i].branch, 50, stdin);
@@ -122,7 +134,7 @@ int main(){
         displayStudent(student,studentCount);
         break;
         case 3:
-        searchStudent(student, studentCount);
+        searchStudent(student,studentCount);
         break;
         case 4:
         return 0;
